@@ -1,0 +1,164 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "test-case.schema.json",
+  "title": "Test Case Schema",
+  "description": "Schema for validating test case definitions in the Playwright automation hub",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "title", "tags", "tier", "steps", "locales", "automationRisk", "pages"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique identifier for the test case"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable title describing the test case"
+    },
+    "tags": {
+      "type": "array",
+      "description": "Array of tags for categorizing and filtering tests",
+      "minItems":1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "smoke",
+          "critical",
+          "api",
+          "contract",
+          "nightly",
+          "manual-candidate",
+          "auth",
+          "rtl",
+          "visual"
+        ]
+      }
+    },
+    "tier": {
+      "type": "string",
+      "description": "CI tier determining when the test runs",
+      "enum": ["PR", "MAIN", "NIGHTLY", "ManualCandidate"]
+    },
+    "locales": {
+      "type": "array",
+      "description": "Locales this test applies to",
+      "items": {
+        "type": "string",
+        "enum": ["en", "ar"]
+      }
+    },
+    "preconditions": {
+      "type": "object",
+      "description": "Preconditions required before test execution",
+      "additionalProperties": { "type": ["string", "boolean", "number"] }
+    },
+    "pages": {
+      "type": "array",
+      "description": "Page object model references used by this test",
+      "items": {
+        "type": "string"
+      }
+    },
+    "automationRisk": {
+      "type": "string",
+      "description": "Risk level for automation stability",
+      "enum": ["low", "medium", "high"]
+    },
+    "data": {
+      "type": "object",
+      "description": "Test data required for execution",
+      "additionalProperties": true
+    },
+    "steps": {
+      "type": "array",
+      "description": "Ordered list of test steps",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["type", "intent"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Step type: action performs an operation, assert verifies a condition",
+            "enum": ["action", "assert"]
+          },
+          "intent": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Human-readable description of what this step does"
+          },
+          "data": {
+            "description": "Optional data for this step. For visual checkpoints, include 'visual' property.",
+            "anyOf": [
+              { "type": "string" },
+              {
+                "type": "object",
+                "properties": {
+                  "visual": {
+                    "type": "object",
+                    "description": "Visual checkpoint configuration for screenshot comparison",
+                    "properties": {
+                      "target": {
+                        "type": "string",
+                        "enum": ["locator", "page"],
+                        "description": "Screenshot target: 'locator' (preferred) or 'page'"
+                      },
+                      "selector": {
+                        "type": "string",
+                        "description": "CSS selector or role description for locator target"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "Snapshot name (without extension)"
+                      },
+                      "mask": {
+                        "type": "array",
+                        "items": { "type": "string" },
+                        "description": "Selectors for elements to mask during comparison"
+                      },
+                      "waitStable": {
+                        "type": "boolean",
+                        "description": "Wait for visual stability before capture"
+                      }
+                    },
+                    "required": ["target", "name"]
+                  }
+                },
+                "additionalProperties": true
+              }
+            ]
+          }
+        }
+      }
+    },
+    "manualCandidateReason": {
+      "description": "Required explanation when tier is ManualCandidate; must be null or absent otherwise"
+    }
+  },
+  "if": {
+    "properties": {
+      "tier": { "const": "ManualCandidate" }
+    },
+    "required": ["tier"]
+  },
+  "then": {
+    "properties": {
+      "manualCandidateReason": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "required": ["manualCandidateReason"]
+  },
+  "else": {
+    "properties": {
+      "manualCandidateReason": {
+        "anyOf": [{"type": "null"}]
+      }
+    }
+  }
+}

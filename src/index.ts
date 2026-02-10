@@ -40,3 +40,7 @@ export type {
   I18nApi,
   TestFeaturesApi,
 } from "./fixtures";
+
+// --- Validation ---
+export { validateTestCases, validateTestCasesCli } from "./validation";
+export type { ValidationResult, ValidateTestCasesOptions } from "./validation";
