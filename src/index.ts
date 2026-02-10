@@ -26,3 +26,6 @@ export type { I18n, I18nProviderOptions } from "./i18n";
 // --- Features ---
 export { loadFeatures } from "./features";
 export type { FeaturesApi, LoadFeaturesOptions } from "./features";
+
+// --- Annotations ---
+export { testCaseAnnotation, withTestCase } from "./annotations";
