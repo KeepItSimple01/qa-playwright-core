@@ -29,3 +29,14 @@ export type { FeaturesApi, LoadFeaturesOptions } from "./features";
 
 // --- Annotations ---
 export { testCaseAnnotation, withTestCase } from "./annotations";
+
+// --- Fixtures ---
+export { createTestFixtures } from "./fixtures";
+export type {
+  CreateTestFixturesConfig,
+  AuthenticateFn,
+  CoreTestFixtures,
+  CoreWorkerFixtures,
+  I18nApi,
+  TestFeaturesApi,
+} from "./fixtures";
