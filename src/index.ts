@@ -22,3 +22,7 @@ export type { LogLevel, Logger } from "./logger/logger";
 // --- i18n ---
 export { createI18nProvider, switchLanguageIfNeeded, resolveLangFromEnv, createTextLocator } from "./i18n";
 export type { I18n, I18nProviderOptions } from "./i18n";
+
+// --- Features ---
+export { loadFeatures } from "./features";
+export type { FeaturesApi, LoadFeaturesOptions } from "./features";
