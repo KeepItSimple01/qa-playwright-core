@@ -18,3 +18,7 @@ export type { SupportedLanguage } from "./constants/languages";
 // --- Logger ---
 export { logger, createLogger, getEffectiveLogLevel, isColoredOutput } from "./logger/logger";
 export type { LogLevel, Logger } from "./logger/logger";
+
+// --- i18n ---
+export { createI18nProvider, switchLanguageIfNeeded, resolveLangFromEnv, createTextLocator } from "./i18n";
+export type { I18n, I18nProviderOptions } from "./i18n";
