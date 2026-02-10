@@ -1,0 +1,29 @@
+{
+  "name": "@company/pw-core",
+  "version": "0.1.0",
+  "description": "Core Playwright testing framework — fixtures, i18n, features, env, logger",
+  "type": "commonjs",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
+    "prepack": "npm run build"
+  },
+  "peerDependencies": {
+    "@playwright/test": ">=1.50.0"
+  },
+  "dependencies": {
+    "zod": "^3.24.0"
+  },
+  "license": "MIT"
+}
