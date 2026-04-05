@@ -1,5 +1,5 @@
 {
-  "name": "@company/pw-core",
+  "name": "@keepitsimple01/pw-core",
   "version": "0.1.0",
   "description": "Core Playwright testing framework — fixtures, i18n, features, env, logger, validation",
   "type": "commonjs",
